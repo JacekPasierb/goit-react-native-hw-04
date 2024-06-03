@@ -17,22 +17,6 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const BoxAvatar = styled.View`
-  margin-top: -60px;
-  height: 120px;
-  width: 120px;
-  background-color: #f6f6f6;
-  border-radius: 16px;
-`;
-
-export const AddButton = styled.TouchableOpacity`
-  margin-top: 65%;
-  left: 90%;
-  height: 25px;
-  width: 25px;
-  pointer-events: auto;
-`;
-
 export const Title = styled.Text`
   margin-top: 32px;
   font-size: 30px;
