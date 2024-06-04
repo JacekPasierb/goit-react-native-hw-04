@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native";
 import imageBG from "../../assets/PhotoBG.jpg";
 
 import {
@@ -20,43 +28,57 @@ const LoginScreen = () => {
 
   const passwShow = () => alert(`Your password is: ${password}`);
 
-  const onRegister = () => {
-    Alert.alert("Credentials", `${login} + ${password}`);
+  const onLogin = () => {
+    if (!email || !password) {
+      Alert.alert("Enter all data place!!!");
+      return;
+    }
+    console.log(` Email: ${email}, Password: ${password}`);
   };
 
   return (
     <>
       <Background source={imageBG} resizeMode="cover">
         <FormRegister>
-          <Container>
-            <Title>Sign in</Title>
-            <BoxInputs>
-              <Input
-                onChangeText={onChangeEmail}
-                value={email}
-                placeholder="Email"
-              />
-              <Input
-                onChangeText={onChangePassword}
-                value={password}
-                placeholder="Password"
-              />
-              <TouchableOpacity
-                style={styles.passwShow}
-                activeOpacity={0.5}
-                onPress={passwShow}
-              >
-                <Text style={styles.passwShowText}>Show</Text>
-              </TouchableOpacity>
-            </BoxInputs>
-            <StyledButton activeOpacity={0.5} onPress={onRegister}>
-              <ButtonText>Sign in</ButtonText>
-            </StyledButton>
-            <NavText>
-              Don't have an account?
-              <Text>Register now</Text>
-            </NavText>
-          </Container>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "ios" ? "padding" : "height"}
+            >
+              <Container>
+                <Title>Sign in</Title>
+
+                <BoxInputs>
+                  <Input
+                    onChangeText={onChangeEmail}
+                    value={email}
+                    placeholder="Email"
+                  />
+                  <Input
+                    onChangeText={onChangePassword}
+                    value={password}
+                    placeholder="Password"
+                    maxLength={8}
+                    secureTextEntry={true}
+                  />
+                  <TouchableOpacity
+                    style={styles.passwShow}
+                    activeOpacity={0.5}
+                    onPress={passwShow}
+                  >
+                    <Text style={styles.passwShowText}>Show</Text>
+                  </TouchableOpacity>
+                </BoxInputs>
+
+                <StyledButton activeOpacity={0.5} onPress={onLogin}>
+                  <ButtonText>Sign in</ButtonText>
+                </StyledButton>
+                <NavText>
+                  Don't have an account?
+                  <Text>Register now</Text>
+                </NavText>
+              </Container>
+            </KeyboardAvoidingView>
+          </TouchableWithoutFeedback>
         </FormRegister>
       </Background>
     </>
