@@ -25,11 +25,14 @@ import {
   StyledButton,
   Title,
 } from "./RegistrationScreen.styled";
+import { useNavigation } from "@react-navigation/native";
 
 const RegistrationScreen = () => {
   const [login, onChangeLogin] = useState("");
   const [email, onChangeEmail] = useState("");
   const [password, onChangePassword] = useState("");
+
+  const navigation = useNavigation();
 
   const passwShow = () => alert(`Your password is: ${password}`);
 
@@ -38,7 +41,7 @@ const RegistrationScreen = () => {
       Alert.alert("Enter all data place!!!");
       return;
     }
-    console.log(`Login: ${login}, Email: ${email}, Password: ${password}`);
+    navigation.navigate('Home', { screen: 'PostsScreen' });
   };
 
   return (
@@ -90,7 +93,7 @@ const RegistrationScreen = () => {
                 <StyledButton activeOpacity={0.5} onPress={onRegister}>
                   <ButtonText>Registration</ButtonText>
                 </StyledButton>
-                <NavText>
+                <NavText onPress={() => navigation.navigate("Login")}>
                   Already have an account?
                   <Text>Sign in</Text>
                 </NavText>

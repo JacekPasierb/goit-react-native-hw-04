@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Alert,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -21,19 +22,22 @@ import {
   StyledButton,
   Title,
 } from "./LoginScreen.styled";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
   const [email, onChangeEmail] = useState("");
   const [password, onChangePassword] = useState("");
 
-  const passwShow = () => alert(`Your password is: ${password}`);
+  const navigation = useNavigation();
+
+  const passwShow = () => Alert.alert(`Your password is: ${password}`);
 
   const onLogin = () => {
     if (!email || !password) {
       Alert.alert("Enter all data place!!!");
       return;
     }
-    console.log(` Email: ${email}, Password: ${password}`);
+    navigation.navigate('Home', { screen: 'PostsScreen' });
   };
 
   return (
@@ -72,7 +76,7 @@ const LoginScreen = () => {
                 <StyledButton activeOpacity={0.5} onPress={onLogin}>
                   <ButtonText>Sign in</ButtonText>
                 </StyledButton>
-                <NavText>
+                <NavText onPress={() => navigation.navigate("Registration")}>
                   Don't have an account?
                   <Text>Register now</Text>
                 </NavText>
